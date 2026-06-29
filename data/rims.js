@@ -1,19 +1,4 @@
-/* global use, db */
-// MongoDB Playground
-// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
-// Make sure you are connected to enable completions and to be able to run a playground.
-// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
-// The result of the last command run in a playground is shown on the results panel.
-// By default the first 20 documents will be returned with a cursor.
-// Use 'console.log()' to print to the debug output.
-// For more documentation on playgrounds please refer to
-// https://www.mongodb.com/docs/mongodb-vscode/playgrounds/
-
-// Select the database to use.
-use('WheelGen');
-
-// Insert a few documents into the sales collection.
-db.getCollection('rims').insertMany([
+const rims = [
   {
     id: "rotiform-las-r",
     name: "LAS-R",
@@ -126,45 +111,6 @@ db.getCollection('rims').insertMany([
     category: "Street",
     fitmentNotes: "A versatile choice for daily drivers and modern cars."
   }
-]);
+];
 
-db.getCollection('cars').insertMany([
-    {
-        imageName: "mazda-rx7-rpf1.jpg",
-        year: "1997",
-        make: "Mazda",
-        model: "RX-7",
-        extraInfo: "FD3s, running Enkei RPF1s in 17x9 5x114.3 45 offset Set of Four. Custom HKS intake, aftermarket"
-    },
-    {
-        imageName: "mini-r56-rotiform-ccv.jpg",
-        year: "2012",
-        make: "Mini",
-        model: "John Cooper Works",
-        extraInfo: "Lowered on coilovers with aftermarket rims, aftermarket intake."
-    },
-    {
-        imageName: "toyota-4runner-offroad.jpg",
-        year: "2016",
-        make: "Toyota",
-        model: "4Runner",
-        extraInfo: "Lift kid, factory TRD body."
-    },
-    {
-        imageName: "mclaren-senna-ankry-xr.jpg",
-        year: "2019",
-        make: "Mclaren",
-        model: "Senna",
-        extraInfo: "Lowered on chrome rims."
-    },
-    {
-        imageName: "vw-taos-fifteen52.jpg",
-        year: "2017",
-        make: "Volkswagen",
-        model: "Taos",
-        extraInfo: "Offroad rims."
-    }
-]);
-
-//console.log(db.getCollection('rims').find({}));
-//console.log(db.getCollection('cars').find({}));
+export default rims;

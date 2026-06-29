@@ -77,29 +77,32 @@ export default function VehicleForm() {
 
     const router = useRouter();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-        const submitData = {
-            year: formData.year,
-            model: formData.model,
-            make: formData.make,
-            extraInfo: formData.extraInfo || "",
-            imageData: imagePreview || null,
-        };
+      const formDataToSend = new FormData();
+      formDataToSend.append('imageName', imagePreview || '');
+      formDataToSend.append('year', formData.year);
+      formDataToSend.append('make', formData.make);
+      formDataToSend.append('model', formData.model);
+      formDataToSend.append('extraInfo', formData.extraInfo || '');
 
-        const info = localStorage.getItem("submittedCars");
-        
-        let list;
-        if (info) {
-            list = JSON.parse(info);
-        } else {
-            list = [];
-        }
-        list.push(submitData);
-        localStorage.setItem("submittedCars", JSON.stringify(list));
-        router.push("/gallery");
-    };
+      try {
+          const response = await fetch('/api/addVehicle', {
+              method: 'POST',
+              body: formDataToSend,
+          });
+
+          const data = await response.json();
+          
+          // Redirect to gallery
+          if (data.redirect) {
+              router.push(data.redirect);
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  };
 
     //----------------------------
 
@@ -107,7 +110,7 @@ export default function VehicleForm() {
       <div className="space-y-8 py-10">
         <h1 className="text-4xl text-gray-700 font-bold text-center">Upload Your Vehicle</h1>
 
-        <form onSubmit={handleSubmit} className="grid gap-6 max-w-3xl mx-auto">
+        <form onSubmit={handleSubmit} method="POST" className="grid gap-6 max-w-3xl mx-auto">
 
           <div className="card">
             <div className="p-4">
@@ -116,6 +119,7 @@ export default function VehicleForm() {
                 <input
                   type="file"
                   accept="image/*"
+                  name="imageName"
                   onChange={handleChange}
                   required
                   className="file:[display:none] text-gray-700 mt-2 block w-full bg-white border border-gray-200 rounded px-3 py-2"
