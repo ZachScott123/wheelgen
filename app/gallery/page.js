@@ -1,16 +1,20 @@
 import { connectToDB } from '@/app/api/db';
-import { revalidatePath } from 'next/cache';
 import VehicleCard from '@/app/components/vehiclecard/vehiclecard';
 
 export default async function Gallery() {
     const { db } = await connectToDB();
     
     const cars = await db.collection('cars').find({}).toArray();
+
+    console.log('All cars:', cars.map(car => ({
+        id: car._id.toString(),
+        make: car.make,
+        model: car.model
+    })));
     
     const carsWithStringId = cars.map(car => ({
         ...car,
         _id: car._id.toString(),
-        imageUrl: car.imageData
     }));
 
   return (
