@@ -4,7 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { handleLoginAction } from '@/app/login/route';
+import { handleLoginAction, handleLogoutAction, checkAuthStatus } from '@/app/login/route';
 
 function NavLink({ href, children }) {
   const pathname = usePathname();
@@ -25,6 +25,21 @@ function NavLink({ href, children }) {
 }
 
 export default function RootLayout({ children }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const result = await checkAuthStatus();
+        setIsLoggedIn(result.isLoggedIn);
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+    
+    checkAuth();
+  }, []);
+  
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col text-white antialiased">
@@ -39,9 +54,29 @@ export default function RootLayout({ children }) {
                 <NavLink href="/upload">Upload</NavLink>
               </div>
               <div className="flex items-center gap-3 rounded-full ml-4 bg-neutral-600 px-2 py-1.5">
-                <form action={handleLoginAction}>
-                  <button type="submit" className="font-semibold px-4 py-2 rounded-full text-white/90 hover:text-white transition-colors">Login</button>
-                </form>
+                
+                {isLoggedIn ? (
+
+                  <form action={handleLogoutAction}>
+                    <button 
+                      type="submit"
+                      className="font-semibold px-4 py-2 rounded-full text-gray/100 hover:text-white hover:bg-red-400 transition-colors"
+                    >
+                      Logout
+                    </button>
+                  </form>
+                ) : (
+
+                  <form action={handleLoginAction}>
+                    <button 
+                      type="submit" 
+                      className="font-semibold px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-green-400 transition-colors"
+                    >
+                      Login
+                    </button>
+                  </form>
+                )}
+
               </div>
             </div>
           </div>
