@@ -34,6 +34,7 @@ export default function RootLayout({ children }) {
         setIsLoggedIn(result.isLoggedIn);
       } catch {
         setIsLoggedIn(false);
+        
       }
     };
     
@@ -52,6 +53,9 @@ export default function RootLayout({ children }) {
                 <NavLink href="/wheels">Wheels</NavLink>
                 <NavLink href="/gallery">Gallery</NavLink>
                 <NavLink href="/upload">Upload</NavLink>
+                {isLoggedIn && (
+                  <NavLink href="/garage">Garage</NavLink>
+                )}
               </div>
               <div className="flex items-center gap-3 rounded-full ml-4 bg-neutral-600 px-2 py-1.5">
                 
@@ -70,7 +74,7 @@ export default function RootLayout({ children }) {
                   <form action={handleLoginAction}>
                     <button 
                       type="submit" 
-                      className="font-semibold px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-green-400 transition-colors"
+                      className="font-semibold px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-neutral-400 transition-colors"
                     >
                       Login
                     </button>
