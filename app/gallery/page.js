@@ -6,11 +6,11 @@ export default async function Gallery() {
     
     const cars = await db.collection('cars').find({}).toArray();
 
-    console.log('All cars:', cars.map(car => ({
+    cars.map(car => ({
         id: car._id.toString(),
         make: car.make,
         model: car.model
-    })));
+    }));
     
     const carsWithStringId = cars.map(car => ({
         ...car,
