@@ -56,8 +56,6 @@ export default async function Garage() {
 
       return (
         <div className="space-y-1">
-          <p className="muted text-sm">Make: {item.make}</p>
-          <p className="muted text-sm">Model: {item.model}</p>
           {extraInfoSection}
         </div>
       );
@@ -97,8 +95,8 @@ export default async function Garage() {
 
   return (
     <div className="space-y-8 py-10">
-      <div className="max-w-3xl mx-auto">
-        <Link href="/garage/upload" className="btn-accent w-full block text-center">
+      <div className="max-w-3xl mx-auto flex px-4">
+        <Link href="/garage/upload" className="btn-accent w-1/2 text-center">
           Upload to Garage
         </Link>
       </div>

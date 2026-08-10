@@ -5,7 +5,6 @@ export const partRecommendationSchema = z.object({
     description: z.string(),
     reason: z.string(),
     category: z.string(),
-    priority: z.number().min(0).max(10),
     parts: z.array(
         z.object({
             name: z.string(),

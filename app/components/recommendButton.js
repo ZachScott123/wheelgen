@@ -41,31 +41,42 @@ export default function RecommendButton({itemId}) {
       {error && <p className="mt-3 text-sm text-red-300">{error}</p>}
 
       {recommendation && (
-        <div className="mt-4 rounded-2xl border border-neutral-700 bg-neutral-800 p-5 shadow-sm">
-          <h3 className="text-xl font-semibold text-neutral-100">{recommendation.title}</h3>
-          <p className="mt-2 text-neutral-300">{recommendation.description}</p>
-          <p className="mt-2 italic text-neutral-400">{recommendation.reason}</p>
-
-          <div className="mt-4 flex flex-wrap gap-3 text-sm text-neutral-300">
-            <span className="rounded-full bg-neutral-700 px-3 py-1 shadow-sm">Category: <b>{recommendation.category}</b></span>
-            <span className="rounded-full bg-neutral-700 px-3 py-1 shadow-sm">Priority: <b>{recommendation.priority}</b></span>
-          </div>
-
-          {recommendation.parts?.length > 0 && (
-            <div className="mt-5 space-y-3">
-              {recommendation.parts.map((part, index) => (
-                <div key={index} className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm">
-                  <p className="font-semibold text-neutral-900">{part.name}</p>
-                  {part.brand && <p className="text-sm text-neutral-600">Brand: {part.brand}</p>}
-                  {part.category && <p className="text-sm text-neutral-600">Category: {part.category}</p>}
-                  {part.details && <p className="mt-2 text-neutral-700">{part.details}</p>}
-                  {typeof part.score == 'number' && (
-                    <p className="mt-2 text-sm text-neutral-500">Score: {part.score}</p>
-                  )}
-                </div>
-              ))}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-3xl rounded-[2rem] border-2 border-green-500 bg-neutral-900 p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-2xl font-semibold text-neutral-100">{recommendation.title}</h3>
+                <p className="mt-2 text-neutral-300">{recommendation.description}</p>
+              </div>
+              <button
+                onClick={() => setRecommendation(null)}
+                className="inline-flex h-10 items-center justify-center rounded-full border border-neutral-700 bg-neutral-800 px-4 text-sm font-semibold text-white transition hover:bg-green-600">
+                Done
+              </button>
             </div>
-          )}
+
+            <p className="mt-4 italic text-neutral-400">{recommendation.reason}</p>
+
+            <div className="mt-5 flex flex-wrap gap-3 text-sm text-neutral-300">
+              <span className="rounded-full bg-neutral-700 px-3 py-1 shadow-sm">Category: <b>{recommendation.category}</b></span>
+            </div>
+
+            {recommendation.parts?.length > 0 && (
+              <div className="mt-6 space-y-4">
+                {recommendation.parts.map((part, index) => (
+                  <div key={index} className="rounded-2xl border border-neutral-700 bg-neutral-950 p-4 shadow-sm">
+                    <p className="font-semibold text-neutral-100">{part.name}</p>
+                    {part.brand && <p className="text-sm text-neutral-400">Brand: {part.brand}</p>}
+                    {part.category && <p className="text-sm text-neutral-400">Category: {part.category}</p>}
+                    {part.details && <p className="mt-2 text-neutral-300">{part.details}</p>}
+                    {typeof part.score == 'number' && (
+                      <p className="mt-2 text-sm text-neutral-500">Score: {part.score}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

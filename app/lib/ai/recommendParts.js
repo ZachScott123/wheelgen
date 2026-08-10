@@ -5,14 +5,15 @@ import { githubModels } from "./githubModels";
 import { partRecommendationSchema } from "./part-recommendation-schema";
 
 const SYSTEM_PROMPT = `
-You are an expert automotive parts recommendation assistant.
-The user wants compatible or similar parts for a single selected garage item.
+    You are an expert automotive parts recommendation assistant.
+    The user wants compatible or similar parts for a single selected garage item.
 
-Return only a valid JSON object matching the schema.
-Include title, description, reason, category, priority, and parts.
-Use only the provided item information.
-If category is unclear, use "General".
-Priority must be a number from 0 to 10.
+
+    Rules:
+        -Recommend atleast 2 parts, but no more than 4.
+        -Do not repeat items already in the user's description or part list.
+        -Return only a valid JSON object matching the schema.
+        -Include title, description, reason, category, and parts.
 `.trim()
 
 export async function recommendParts(parts) {
@@ -96,19 +97,6 @@ export async function recommendParts(parts) {
 
         if (!output.category) {
             output.category = "General";
-        }
-
-        if (typeof output.priority == "string") {
-            var parsedPriority = parseFloat(output.priority);
-            if (Number.isNaN(parsedPriority)) {
-                output.priority = 0;
-            } else {
-                output.priority = parsedPriority;
-            }
-        }
-
-        if (output.priority == null) {
-            output.priority = 0;
         }
 
         return partRecommendationSchema.parse(output);
