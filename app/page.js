@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
       <div
         className="relative w-screen bg-cover bg-center"
         style={{ backgroundImage: `url('${backgroundImage}')`, backgroundSize: 'cover' }}
-      >
+>
         <img src={backgroundImage} alt="Cover" className="w-screen h-auto block" />
         <div className="absolute inset-0 flex items-center pl-12">
           <div>
@@ -25,31 +26,25 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 py-8">
-        <div
-          className="rounded-2xl p-6 text-slate-800 shadow-md"
-          style={{
-            background: 'linear-gradient(45deg, #a8cfa0 0%, #d9efcf 100%)',
-          }}
-        >
-          <h2 className="text-2xl font-bold mb-3">ABOUT</h2>
-          <p>
+      <section className="bg-white px-6 py-16">
+        <div className="mx-auto bg-gradient-to-br from-[#a8cfa0] to-[#d9efcf] container-wide bg-white/0 p-8 shadow-xl md:max-w-4xl">
+          <h2 className="text-3xl font-bold mb-4 text-slate-950">ABOUT</h2>
+          <p className="text-lg text-slate-900 leading-8">
             WheelGen is your ultimate wheel browser and car imagery tool. Where you can browse and discover the latest wheel designs and car images. We host a community of shared interests in automotive wheels and design, where you can upload to our public Gallery, or login and create your own Garage!
           </p>
         </div>
+      </section>
 
-        <div
-          className="rounded-2xl p-6 text-slate-800 shadow-md"
-          style={{
-            background: 'linear-gradient(45deg, #a8cfa0 0%, #d9efcf 100%)',
-          }}
-        >
-          <h2 className="text-2xl font-bold mb-3">EXPLORE</h2>
-          <p>
-            Discover new styles, save favorites, and build your dream setup with a community centered around automotive design.
-          </p>
+      <section className="bg-neutral-900 px-6 py-16">
+        <div className="mx-auto container-wide md:max-w-4xl">
+          <div className="md:ml-auto md:max-w-2xl">
+            <h2 className="text-3xl font-bold mb-4 text-white text-right">EXPLORE</h2>
+            <p className="text-lg text-slate-200 leading-8 text-right">
+              Discover new styles and build your dream setup with WheelGen. Create your own Garage to store your favorite wheels, compare setups, and keep everything organized in one place.
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
