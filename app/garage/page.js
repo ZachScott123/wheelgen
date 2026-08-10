@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { jwtVerify } from 'jose';
 import { connectToDB } from '@/app/api/db';
+import RecommendButton from '@/app/components/recommendButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -129,6 +130,9 @@ export default async function Garage() {
 
               <div className="p-4">
                 {renderItemDetails(item)}
+                <div className="mt-4">
+                  <RecommendButton itemId={item._id.toString()} />
+                </div>
               </div>
             </li>
           );

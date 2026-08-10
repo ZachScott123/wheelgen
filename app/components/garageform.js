@@ -199,8 +199,9 @@ export default function GarageForm() {
               name="extraInfo"
               value={vehicleFormData.extraInfo}
               onChange={handleVehicleInputChange}
-              placeholder="Tell us more about the vehicle"
+              placeholder="Tell us more about the vehicle (30 characters)"
               rows="4"
+              maxLength={30}
               className="text-gray-700 text-sm mt-2 block w-full bg-white border border-gray-200 rounded px-4 py-4"
             />
           </label>

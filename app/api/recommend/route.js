@@ -8,15 +8,19 @@ import { recommendParts } from '@/app/lib/ai/recommendParts';
 export async function POST(request) {
   const cookieStore = await cookies();
   const session = cookieStore.get('session');
-  const secret = new TextEncoder().encode(
-    process.env.JWT_SECRET);
+
+  if (!session?.value) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   let payload = null;
 
   try {
     ({ payload } = await jwtVerify(session.value, secret));
   } catch (error) {
     console.error('JWT verification failed', error);
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const body = await request.json();
