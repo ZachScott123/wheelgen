@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { handleLoginAction, handleLogoutAction, checkAuthStatus } from '@/app/login/route';
+import { breathFont } from '@/app/fonts';
 
 function NavLink({ href, children }) {
   const pathname = usePathname();
@@ -43,10 +44,10 @@ export default function RootLayout({ children }) {
   
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col text-white antialiased">
+      <body className={`min-h-screen flex flex-col text-white antialiased ${breathFont.variable}`}>
         <nav className="w-full py-3 bg-neutral-800 shadow-xl">
           <div className="mx-auto container-wide px-6 flex items-center gap-4">
-            <div className="text-2xl font-bold">WHEELGEN</div>
+            <div className="text-4xl font-breath">WHEELGEN</div>
             <div className="flex-1 flex justify-end">
               <div className="flex items-center gap-3 rounded-full bg-neutral-600 px-2 py-1.5">
                 <NavLink href="/">Home</NavLink>
