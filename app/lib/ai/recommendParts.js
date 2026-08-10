@@ -6,7 +6,7 @@ import {
     Output,
 } from 'ai';
 
-import { githubModels } from "./github-models";
+import { githubModels } from "./githubModels";
 import { partRecommendationSchema } from "./part-recommendation-schema";
 
 const SYSTEM_PROMPT = `
@@ -27,8 +27,7 @@ const SYSTEM_PROMPT = `
 
 export async function recommendParts(parts) {
     const garageInventory = parts.filter((part) =>
-        part && typeof part.name === "string" &&
-        part.name.trim() !== ""
+        part && typeof part === 'object' && Object.keys(part).length > 0
     );
 
     if (garageInventory.length === 0) {
