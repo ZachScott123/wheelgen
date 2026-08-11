@@ -96,7 +96,7 @@ export default async function Garage() {
   return (
     <div className="space-y-8 py-10">
       <div className="max-w-3xl mx-auto flex px-4">
-        <Link href="/garage/upload" className="btn-accent w-1/2 text-center">
+        <Link href="/garage/upload" className="btn-accent w-full text-center">
           Upload to Garage
         </Link>
       </div>

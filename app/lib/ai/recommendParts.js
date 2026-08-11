@@ -1,7 +1,8 @@
 import "server-only"
 
 import { generateText } from 'ai';
-import { githubModels } from "./githubModels";
+//import { githubModels } from "./githubModels"; //Easily switch between Groq and OpenAI
+import { groqModels } from "./groqModels";
 import { partRecommendationSchema } from "./part-recommendation-schema";
 
 const SYSTEM_PROMPT = `
@@ -71,7 +72,7 @@ export async function recommendParts(parts) {
 
     try {
         const result = await generateText({
-            model: githubModels("gpt-3.5-turbo"),
+            model: groqModels("llama-3.1-8b-instant"),
             system: SYSTEM_PROMPT,
             prompt,
             maxOutputTokens: 500,

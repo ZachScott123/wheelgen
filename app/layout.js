@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`min-h-screen flex flex-col text-white antialiased ${breathFont.variable}`}>
-        <nav className="w-full py-3 bg-neutral-800 shadow-xl">
+          <nav className="w-full py-3 bg-neutral-800 shadow-xl">
           <div className="mx-auto container-wide px-6 flex items-center gap-4">
             <div className="text-4xl font-breath">WHEELGEN</div>
             <div className="flex-1 flex justify-end">
