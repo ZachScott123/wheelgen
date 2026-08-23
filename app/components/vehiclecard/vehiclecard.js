@@ -1,7 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import ShareButton from './ShareButton';
+import ShareButton from '@/app/ShareButton.js';
+import VehicleForm from '@/app/components/vehicleform.js';
 
 export default function VehicleCard({ vehicle }) {
   const router = useRouter();
@@ -53,11 +54,37 @@ export default function VehicleCard({ vehicle }) {
     );
   }
 
+  const getImageSrc = () => {
+    if (vehicle.imageData) {
+      return vehicle.imageData;
+    } else if (vehicle.imageName) {
+      return "/images/cars/" + vehicle.imageName;
+    }
+    return null;
+  };
+
   return (
-    <li className="card">
-      <div className="p-4">
-        <p className="muted uppercase">{vehicle.year} - {vehicle.make}</p>
-        <h2 className="text-lg font-semibold">{vehicle.model}</h2>
+    <li className="card relative overflow-hidden">
+      <div className="relative p-4">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="muted uppercase">{vehicle.year} - {vehicle.make}</p>
+            <h2 className="text-lg font-semibold">{vehicle.model}</h2>
+          </div>
+          <div className="pt-1">
+            <ShareButton
+              vehicleId={vehicle._id.toString()}
+              vehicleImage={getImageSrc()}
+              vehicleName={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+              vehicleDetails={{
+                year: vehicle.year,
+                make: vehicle.make,
+                model: vehicle.model,
+                extraInfo: vehicle.extraInfo,
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       {imageLink}

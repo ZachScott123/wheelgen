@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { FaShare } from 'react-icons/fa';
 
 export default function ShareButton({ vehicleId, vehicleImage, vehicleName, vehicleDetails }) {
   const [showOptions, setShowOptions] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/vehicle/${vehicleId}`;
   let shareText = "";
@@ -28,7 +28,7 @@ export default function ShareButton({ vehicleId, vehicleImage, vehicleName, vehi
           try {
             const response = await fetch(vehicleImage);
             const blob = await response.blob(); //blob converts response to a binary object, which can be used to create the file.
-            const file = new File([blob], 'vehicle.jpg', { type: blob.type || 'image/jpeg' });
+            const file = new File([blob], `${vehicleName.split(' ').join('-')}.jpg`, { type: blob.type || 'image/jpeg' });
             await navigator.share({
               title: shareData.title,
               text: shareData.text,
@@ -49,23 +49,6 @@ export default function ShareButton({ vehicleId, vehicleImage, vehicleName, vehi
     }
   };
 
-  const copyLinkShare = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      trackShare(vehicleId);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const facebookShare = () => {
-    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-    window.open(url, '_blank');
-    trackShare(vehicleId);
-  };
-
   const trackShare = async (id) => {
     try {
       await fetch('/api/vehicles/share', {
@@ -78,5 +61,11 @@ export default function ShareButton({ vehicleId, vehicleImage, vehicleName, vehi
     }
   };
 
-  return ( <div> </div> );
+  return (
+    <div className="relative">
+      <button onClick={handleShare} className="flex items-center gap-2 px-4 py-1 bg-neutral-500 text-white rounded-lg font-medium hover:bg-neutral-200 hover:text-neutral-800 transition-colors text-sm" aria-label="Share vehicle">
+        <FaShare className="text-sm" />
+      </button>
+    </div>
+  );
 }
