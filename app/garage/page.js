@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { jwtVerify } from 'jose';
 import { connectToDB } from '@/app/api/db';
+import ShareButton from '@/app/ShareButton.js';
 import RecommendButton from '@/app/components/recommendButton';
 
 export const dynamic = 'force-dynamic';
@@ -44,6 +45,15 @@ export default async function Garage() {
     } else {
       return item.name || 'Accessory';
     }
+  };
+
+  const getImageSrc = (item) => {
+    if (item.imageData) {
+      return item.imageData;
+    } else if (item.imageName) {
+      return "/images/cars/" + item.imageName;
+    }
+    return null;
   };
 
   const renderItemDetails = (item) => {
@@ -119,9 +129,26 @@ export default async function Garage() {
 
           return (
             <li key={item._id.toString()} className="card">
-              <div className="p-4">
-                <p className="muted uppercase">{getCategoryLabel(item)}</p>
-                <h2 className="text-lg font-semibold">{getItemTitle(item)}</h2>
+              <div className="relative p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="muted uppercase">{getCategoryLabel(item)}</p>
+                    <h2 className="text-lg font-semibold">{getItemTitle(item)}</h2>
+                  </div>
+                  <div className="pt-1">
+                    <ShareButton
+                      vehicleId={item._id.toString()}
+                      vehicleImage={getImageSrc(item)}
+                      vehicleName={`${item.year} ${item.make} ${item.model}`}
+                      vehicleDetails={{
+                        year: item.year,
+                        make: item.make,
+                        model: item.model,
+                        extraInfo: item.extraInfo,
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
 
               {imageSection}
