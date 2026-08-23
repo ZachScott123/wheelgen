@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import ShareButton from './ShareButton';
 
 export default function VehicleCard({ vehicle }) {
   const router = useRouter();
