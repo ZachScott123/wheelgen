@@ -6,7 +6,7 @@ import { FaShare } from 'react-icons/fa';
 export default function ShareButton({ vehicleId, vehicleImage, vehicleName, vehicleDetails }) {
   const [showOptions, setShowOptions] = useState(false);
 
-  const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/vehicle/${vehicleId}`;
+  const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL || (typeof window !== 'undefined' ? window.location.origin : '')}/vehicle/${vehicleId}`;
   let shareText = "";
 
   if (vehicleDetails) {
